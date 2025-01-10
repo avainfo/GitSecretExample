@@ -10,8 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Use secrets
-      run: echo "The API Key is ${{ secrets.API_KEY }}"
+      - name: Use secrets
+        run: echo "The API Key is ${{ secrets.API_KEY }}"
+
+      - name: Check API Key
+        run: |
+          if [[ -z "${{ secrets.API_KEY }}" ]]; then
+            echo "API_KEY is not set!"
+            exit 1
+          else
+            echo "API_KEY is loaded successfully!"
+          fi
+
